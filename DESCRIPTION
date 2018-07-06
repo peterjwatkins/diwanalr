@@ -1,0 +1,19 @@
+Package: diwanalr
+Type: Package
+Title: A set of tools for data from diffusive wave spectroscopy.
+Version: 0.1.0
+Author: Peter Watkins
+Maintainer: Peter Watkins <Peter.Watkins@csiro.au>
+Imports:
+    ggplot2,
+    tidyverse
+Description: A set of tools for data resulting from diffusive wave spectroscopy.
+    These included conversion of measured data (time vs g2) to related g1, calculation of
+    the mean square displacement as well as the storage and long modulus along with related visualisation.
+License: GPL-3
+Encoding: UTF-8
+LazyData: true
+RoxygenNote: 6.0.1
+Suggests: knitr,
+    rmarkdown
+VignetteBuilder: knitr
