@@ -31,10 +31,10 @@ g1_spline <- function(d) {
 #' @importFrom dplyr filter mutate select
 calc_g1 <- function(d, n = NULL) {
   n <- ifelse(is.null(n), 30, n )
-  d <- filter(d, g2 >= 1)
-  d <- mutate(d, Observed = sqrt(g2 - 1))
-  d <- select(d, -g2)
-  d <- mutate(d, Scaled = range_scale(Observed, n))  # range scale data
+  d <- dplyr::filter(d, g2 >= 1)
+  d <- dplyr::mutate(d, Observed = sqrt(g2 - 1))
+  d <- dplyr::select(d, -g2)
+  d <- dplyr::mutate(d, Scaled = range_scale(Observed, n))  # range scale data
   return(d)
 }
 #' Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
@@ -48,8 +48,8 @@ calc_g1 <- function(d, n = NULL) {
 plot_g1 <- function(d) {
     p <- g1_spline(d)
     t_half <- approxfun(x = p, y = d$time)(0.5)
-    e <- gather(d, key = g1, Value, -time)
-    ggplot(e, aes(time, Value, color = g1)) + geom_point() + scale_x_log10() + labs(x = "Correlation time (s)", y = "g1(t)") +
+    e <- tidyr::gather(d, key = g1, Value, -time)
+    ggplot2::ggplot(e, aes(time, Value, color = g1)) + geom_point() + scale_x_log10() + labs(x = "Correlation time (s)", y = "g1(t)") +
         geom_hline(yintercept = 0.5, linetype = "dashed", color = "blue") + geom_vline(xintercept = approxfun(x = p,
         y = d$time)(0.5), linetype = "dashed", color = "blue")
 }

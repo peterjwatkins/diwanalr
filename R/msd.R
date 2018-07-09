@@ -32,12 +32,13 @@ FindX <- Vectorize(findX)
 #' @return A tibble consisting of correlation time and related mean square displacement
 #' @examples
 #' e <- calc_msd(d)
+#' @importFrom dplyr select
 #' @export
 calc_msd <- function(d) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
     e <- within(d, msd <- FindX(Scaled)/(10^8 * k0))
-    e <- select(e, -`Observed`, -`Scaled`)
+    e <- dplyr::select(e, -`Observed`, -`Scaled`)
     e <- na.omit(e)
 #    print(e)
     return(e)
@@ -49,6 +50,6 @@ calc_msd <- function(d) {
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(d) {
-    ggplot(d, aes(time, msd)) + geom_point() + scale_x_log10() + scale_y_log10() + labs(x = "Correlation time (s)",
+    ggplot2::ggplot(d, aes(time, msd)) + geom_point() + scale_x_log10() + scale_y_log10() + labs(x = "Correlation time (s)",
         y = "Mean square displacement")
 }

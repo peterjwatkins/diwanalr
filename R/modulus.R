@@ -96,7 +96,7 @@ calc_modulus <- function(d, temp = NULL, radius = NULL) {
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
 plot_modulus <- function(g) {
-    g <- gather(g, key = Modulus, val, -freq)
-    ggplot(g, aes(freq, val, color = Modulus)) + geom_point() + scale_x_log10(limits = c(1, 10000)) + scale_y_log10(limits = c(1,
+    g <- tidyr::gather(g, key = Modulus, val, -freq)
+    ggplot2::ggplot(g, aes(freq, val, color = Modulus)) + geom_point() + scale_x_log10(limits = c(1, 10000)) + scale_y_log10(limits = c(1,
         300)) + labs(x = "Frequency", y = "Modulus")
 }
