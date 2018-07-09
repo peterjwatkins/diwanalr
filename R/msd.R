@@ -50,6 +50,10 @@ calc_msd <- function(d) {
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(d) {
-    ggplot2::ggplot(d, aes(time, msd)) + geom_point() + scale_x_log10() + scale_y_log10() + labs(x = "Correlation time (s)",
+    ggplot2::ggplot(d, aes(time, msd)) + 
+    ggplot2::geom_point() + 
+    ggplot2::scale_x_log10() + 
+    ggplot2::scale_y_log10() + 
+    ggplot2::labs(x = "Correlation time (s)",
         y = "Mean square displacement")
 }
