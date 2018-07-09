@@ -5,7 +5,6 @@
 #' @return A numeric vector
 #' @examples
 #' range_scale(Observed, 30)
-#' @export
 range_scale <- function(y, n) {
     range <- mean(y[c(1:n)]) - min(y)
     return((y - min(y))/range)
@@ -16,7 +15,6 @@ range_scale <- function(y, n) {
 #' @return A numeric vector.
 #' @examples
 #' pred <- g1_spline(d)
-#' @export
 g1_spline <- function(d) {
     spl <- with(d, smooth.spline(time, Scaled))
     pred <- with(d, predict(spl, time)$y)
@@ -25,17 +23,19 @@ g1_spline <- function(d) {
 #' Calculates the autocorrelation function value (g1(t)) from measured correlation time and related intensity autocorrelation (g2(t))
 #'
 #' @param d A tibble consisting of measured correlation time and related intensity autocorrelation (g2(t)) value
-#' @param n An integer
+#' @param n (optional) number of data points for scaling, default = 30
 #' @return A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
 #' @examples
 #' e <- calc_g1(d, 30)
 #' @export
-calc_g1 <- function(d, n) {
-    d <- filter(d, g2 >= 1)
-    d <- mutate(d, Observed = sqrt(g2 - 1))
-    d <- select(d, -g2)
-    d <- mutate(d, Scaled = range_scale(Observed, n))  # range scale data
-    return(d)
+#' @importFrom dplyr filter mutate select
+calc_g1 <- function(d, n = NULL) {
+  n <- ifelse(is.null(n), 30, n )
+  d <- filter(d, g2 >= 1)
+  d <- mutate(d, Observed = sqrt(g2 - 1))
+  d <- select(d, -g2)
+  d <- mutate(d, Scaled = range_scale(Observed, n))  # range scale data
+  return(d)
 }
 #' Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
 #'
@@ -43,6 +43,8 @@ calc_g1 <- function(d, n) {
 #' @examples
 #' plot_g1(d)
 #' @export
+#' @importFrom tidyr gather
+#' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 labs geom_hline geom_vline
 plot_g1 <- function(d) {
     p <- g1_spline(d)
     t_half <- approxfun(x = p, y = d$time)(0.5)

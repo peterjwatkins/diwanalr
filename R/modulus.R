@@ -4,7 +4,6 @@
 #' @return A number
 #' @examples
 #' celsius_to_kelvin(20)
-#' @export
 celsius_to_kelvin <- function(temp) {
     return(temp + 273.15)
 }
@@ -14,7 +13,6 @@ celsius_to_kelvin <- function(temp) {
 #' @return A vector
 #' @examples
 #' calc_slope(time, msd)
-#' @export
 calc_slope <- function(x, y) {
     ## x and y must be of same length
     slope <- NULL
@@ -34,7 +32,6 @@ calc_slope <- function(x, y) {
 #' @return A vector
 #' @examples
 #' calc_G(temp, radius, msd, slope)
-#' @export
 calc_G <- function(temp, radius, msd, slope) {
     s <- na.omit(slope)
     kBoltzmann <- 1.38064852/1e+23
@@ -47,7 +44,6 @@ calc_G <- function(temp, radius, msd, slope) {
 #' @return A vector
 #' @examples
 #' calc_freq(time)
-#' @export
 calc_freq <- function(t) {
     # t[1] and t[length] are removed
     lo <- 2
@@ -60,7 +56,6 @@ calc_freq <- function(t) {
 #' @return A vector
 #' @examples
 #' Storage <- calc_Gprime(G, slope)
-#' @export
 calc_Gprime <- function(G, slope) {
     s <- na.omit(slope)
     return(G * cos(pi * s/2))
@@ -71,32 +66,35 @@ calc_Gprime <- function(G, slope) {
 #' @return A vector
 #' @examples
 #' Loss <- calc_GDprime(G, slope)
-#' @export
 calc_GDprime <- function(G, slope) {
     s <- na.omit(slope)
     return(G * sin(pi * s/2))
 }
 #' This function produces a tibble consisting of frequency, the storage and loss modulus
-#' @param G A tibble consisting of correlation time and related mean square displacement
-#' @param temp The temperature as Celsius
-#' @param radius A number, relating to sphere size (eg 5e-7)
-#' @return A tibble consisting of frequency and the related storage and loss modulus
+#' @param d A tibble consisting of correlation time and related mean square displacement
+#' @param temp (optional) temperature in Celsius, default = 20
+#' @param radius (optional) particle radius size, default = 5e-7
+#' @return A tibble consisting of frequency with related storage and loss modulii
 #' @examples
 #' e <- calc_modulus(d, 20, 5e-7)
+#' @importFrom tibble tibble
 #' @export
-calc_modulus <- function(d, temp, radius) {
-    slope <- with(d, calc_slope(time, msd))
-    G <- with(d, calc_G(temp, radius, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
-    # g <- tibble(freq = with(d, calcFreq(time)), `G'` = calcGprime( G, slope ), `G''` = calcGDprime( G, slope ))
-    g <- tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,
-        slope))
-    return(g)
+calc_modulus <- function(d, temp = NULL, radius = NULL) {
+  temp <- ifelse(is.null(temp), 20, temp)
+  radius <- ifelse(is.null(radius), 5e-7, radius)
+  slope <- with(d, calc_slope(time, msd))
+  G <- with(d, calc_G(temp_input, radius_input, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
+  # g <- tibble(freq = with(d, calcFreq(time)), `G'` = calcGprime( G, slope ), `G''` = calcGDprime( G, slope ))
+  g <- tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,        slope))
+  return(g)
 }
 #' Plots storage and loss modulus against the measured frequency
 #' @param g A tibble consisting of frequency and the related storage and loss modulusA
 #' @examples
 #' plot_modulus(g)
 #' @export
+#' @importFrom tidyr gather
+#' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
 plot_modulus <- function(g) {
     g <- gather(g, key = Modulus, val, -freq)
     ggplot(g, aes(freq, val, color = Modulus)) + geom_point() + scale_x_log10(limits = c(1, 10000)) + scale_y_log10(limits = c(1,

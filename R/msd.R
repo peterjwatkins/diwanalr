@@ -4,7 +4,6 @@
 
 #' Used internally for calculating mean square displacement for transmission geometry
 #'
-#' @export
 msd_g1_diff <- local({
     lambda <- 6.32/1e+07
     L <- 0.01
@@ -17,7 +16,6 @@ msd_g1_diff <- local({
 })
 #' Used internally for calculating mean square displacement for transmission geometry
 #'
-#' @export
 findX <- function(y) {
     tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
     if (prod(tst) < 0) {
@@ -27,7 +25,6 @@ findX <- function(y) {
 }
 #' Used internally for calculating mean square displacement for transmission geometry
 #'
-#' @export
 FindX <- Vectorize(findX)
 #' Calculate the mean square displacement
 #'
@@ -40,8 +37,9 @@ calc_msd <- function(d) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
     e <- within(d, msd <- FindX(Scaled)/(10^8 * k0))
-    e <- select(e, -Observed, -Scaled)
-    e <- na.omit(d)
+    e <- select(e, -`Observed`, -`Scaled`)
+    e <- na.omit(e)
+#    print(e)
     return(e)
 }
 #' Plots the mean square displacement against the correlation time
@@ -49,6 +47,7 @@ calc_msd <- function(d) {
 #' @examples
 #' plot_msd(e)
 #' @export
+#' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(d) {
     ggplot(d, aes(time, msd)) + geom_point() + scale_x_log10() + scale_y_log10() + labs(x = "Correlation time (s)",
         y = "Mean square displacement")
