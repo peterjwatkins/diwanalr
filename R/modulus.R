@@ -85,7 +85,7 @@ calc_modulus <- function(d, temp = NULL, radius = NULL) {
   slope <- with(d, calc_slope(time, msd))
   G <- with(d, calc_G(temp_input, radius_input, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
   # g <- tibble(freq = with(d, calcFreq(time)), `G'` = calcGprime( G, slope ), `G''` = calcGDprime( G, slope ))
-  g <- tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,        slope))
+  g <- tibble::tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,        slope))
   return(g)
 }
 #' Plots storage and loss modulus against the measured frequency
@@ -97,6 +97,9 @@ calc_modulus <- function(d, temp = NULL, radius = NULL) {
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
 plot_modulus <- function(g) {
     g <- tidyr::gather(g, key = Modulus, val, -freq)
-    ggplot2::ggplot(g, aes(freq, val, color = Modulus)) + geom_point() + scale_x_log10(limits = c(1, 10000)) + scale_y_log10(limits = c(1,
-        300)) + labs(x = "Frequency", y = "Modulus")
+    ggplot2::ggplot(g, ggplot2::aes(freq, val, color = Modulus)) + 
+    ggplot2::geom_point() + 
+    ggplot2::scale_x_log10(limits = c(1, 10000)) + 
+    ggplot2::scale_y_log10(limits = c(1, 300)) + 
+    ggplot2::labs(x = "Frequency", y = "Modulus")
 }
