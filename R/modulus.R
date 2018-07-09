@@ -83,7 +83,7 @@ calc_modulus <- function(d, temp = NULL, radius = NULL) {
   temp <- ifelse(is.null(temp), 20, temp)
   radius <- ifelse(is.null(radius), 5e-7, radius)
   slope <- with(d, calc_slope(time, msd))
-  G <- with(d, calc_G(temp_input, radius_input, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
+  G <- with(d, calc_G(temp, radius, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
   # g <- tibble(freq = with(d, calcFreq(time)), `G'` = calcGprime( G, slope ), `G''` = calcGDprime( G, slope ))
   g <- tibble::tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,        slope))
   return(g)
