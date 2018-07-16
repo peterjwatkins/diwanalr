@@ -1,5 +1,6 @@
 #--------------
-# Functions for the calculation of the MSD for transmission Credit and acknowledgement to W.N. (Bill) Venables who
+# Functions for the calculation of the MSD for transmission 
+# Credit and acknowledgement to W.N. (Bill) Venables who
 # provided this code/solution
 
 #' Used internally for calculating mean square displacement for transmission geometry
@@ -33,7 +34,6 @@ FindX <- Vectorize(findX)
 #' @examples
 #' e <- calc_msd(d)
 #' @importFrom dplyr select
-#' @export
 calc_msd <- function(d) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
@@ -50,10 +50,11 @@ calc_msd <- function(d) {
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(d) {
-    ggplot2::ggplot(d, ggplot2::aes(time, msd)) + 
-    ggplot2::geom_point() + 
-    ggplot2::scale_x_log10() + 
-    ggplot2::scale_y_log10() + 
-    ggplot2::labs(x = "Correlation time (s)",
+    p <- ggplot2::ggplot(d, ggplot2::aes(time, msd)) + 
+      ggplot2::geom_point() + 
+      ggplot2::scale_x_log10() + 
+      ggplot2::scale_y_log10() + 
+      ggplot2::labs(x = "Correlation time (s)",
         y = "Mean square displacement")
+    return(p)
 }

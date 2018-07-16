@@ -49,11 +49,12 @@ plot_g1 <- function(d) {
     p <- g1_spline(d)
     t_half <- approxfun(x = p, y = d$time)(0.5)
     e <- tidyr::gather(d, key = g1, Value, -time)
-    ggplot2::ggplot(e, ggplot2::aes(time, Value, color = g1)) + 
+    p <- ggplot2::ggplot(e, ggplot2::aes(time, Value, color = g1)) + 
       ggplot2::geom_point() + 
       ggplot2::scale_x_log10() + 
       ggplot2::labs(x = "Correlation time (s)", y = "g1(t)") +
       ggplot2::geom_hline(yintercept = 0.5, linetype = "dashed", color = "blue") + 
       ggplot2::geom_vline(xintercept = approxfun(x = p,
           y = d$time)(0.5), linetype = "dashed", color = "blue")
+    return(p)
 }
