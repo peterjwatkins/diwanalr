@@ -31,7 +31,8 @@ In some cases, the output generated from research equipment consists of a CSV fi
 
 ``` 
 data(dws)
-d <- calc_g1(dws) ; plot_g1(d)
+d <- calc_g1(dws)
+gp <- plot_g1(d) ; gp
 ```
 
 
@@ -39,14 +40,16 @@ d <- calc_g1(dws) ; plot_g1(d)
 The next stage involves calculating the mean square displacement (MSD), based on the scaled *g*~1~($t$) values. This involves finding the values which minimise *g*$_{1}$($t$)$\approx\frac{(\frac{L}{l*}+\frac{4}{3})\sqrt{\frac{6t}{\tau}}}{(1+\frac{8t}{3\tau})sinh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]+\frac{4}{3}\sqrt{\frac{6t}{\tau}}cosh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]}$. This is Equation 16-39b reported in Weitz and Pine, "Diffusing-wave spectroscopy" in Dynamic Light Scattering (ed Wyn Brown), OUP, 1993, pp. 652-720. The function, *calc_msd* is used for this purpose, accepting the output from *calc_g1* and returning a tibble with the time and related MSD. The function *plot_msd* is available to visualise the output data.
 
 ``` 
-m <- calc_msd(d) ; plot_msd(m)
+m <- calc_msd(d)
+mp <- plot_msd(m) ; mp
 ```
 
 3. *The viscoelastic, storage and loss moduli*.
 The last stage is to determine the viscoelastic modulus (*G*) from the mean square displacement, which is then used to determine the related storage and loss moduli. The function *calc_modulus* is used for this purpose, accepting the output from *calc_msd* and returning a tibble with the time and related storage (*G'*) and loss (*G''*) moduli. The function *plot_modulus* is available for visualising the data resulting from the *calc_modulus* function.
 
 ``` 
-o <- calc_modulus(m) ; plot_modulus(o)
+o <- calc_modulus(m)
+op <- plot_modulus(o) ; op
 ```
 
 
