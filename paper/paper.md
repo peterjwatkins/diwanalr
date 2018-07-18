@@ -32,6 +32,6 @@ The package utilises two R packages, *tidyverse* and *ggplot2*, in its implement
 At present, the package can be deployed to determine the viscoelastic, storage and loss moduli of a system using data, consisting of time and related values from the temporal autocorrelation function, *g*~2~($t$). This related to the intensity autocorrelation function, *g*~1~($t$), by the Seigert equation, where *g*~2~($t$) = 1 + $|$*g*~1~($t$)$|$$^2$ [@Seigert]. The *g*~1~($t$) values are used to determine the mean square displacement (MSD), in this case, for transmission geometry by finding the values which minimise the relationship  *g*$_{1}$($t$)$\approx\frac{(\frac{L}{l*}+\frac{4}{3})\sqrt{\frac{6t}{\tau}}}{(1+\frac{8t}{3\tau})sinh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]+\frac{4}{3}\sqrt{\frac{6t}{\tau}}cosh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]}$[@Weitz], and the MSD is then used to calculate *viscoelastic* modulus, and the related *storage* and *loss* moduli for the system under study.
 
 # Acknowledgement
-The author wishes to acknowledge, and credit, W. N. (Bill) Venables for code relating to determining the MSD.
+The author wishes to acknowledge, and credit, W. N. (Bill) Venables for massaging code for determining the MSD.
 
 # References
