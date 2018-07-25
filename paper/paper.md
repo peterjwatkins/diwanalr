@@ -9,7 +9,7 @@ authors:
  - name: Peter J Watkins
    orcid: 0000-0002-1290-3843
    affiliation: "1"
-   affiliations:
+affiliations:
  - name: Commonwealth Scientific and Industrial Research Organisation
    index: 1
 date: 17 July 2018
