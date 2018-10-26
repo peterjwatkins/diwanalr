@@ -33,11 +33,11 @@ calc_slope <- function(x, y) {
 #' @examples
 #' visco_mod(temp, radius, msd, slope)
 visco_mod <- function(temp, radius, msd, slope) {
-    s <- na.omit(slope)
+    slope <- na.omit(slope)
     kBoltzmann <- 1.38064852/1e+23
     lo <- 2
     high <- length(msd) - 1
-    return((kBoltzmann * celsius_to_kelvin(temp))/(pi * radius * msd[(lo:high)] * (gamma(1 + s))))
+    return((kBoltzmann * celsius_to_kelvin(temp))/(pi * radius * msd[(lo:high)] * (gamma(1 + slope))))
 }
 #' This function is used to calculate the frequency as inverse of time
 #' @param t A vector
@@ -51,42 +51,43 @@ calc_freq <- function(t) {
     return(1/(t[(lo:high)]))
 }
 #' This function is used to calculate the storage modulus
-#' @param G A vector (viscoelastic modulus)
+#' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
 #' @examples
-#' Storage <- calc_Gprime(G, slope)
-calc_Gprime <- function(G, slope) {
-    s <- na.omit(slope)
-    return(G * cos(pi * s/2))
+#' Storage <- visco_mod(G, slope)
+storage_mod <- function(visco_mod, slope) {
+    slope <- na.omit(slope)
+    return(visco_mod * cos(pi * slope/2))
 }
 #' This function is used to calculate the loss modulus
-#' @param G A vector (viscoelastic modulus)
+#' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
 #' @examples
-#' Loss <- calc_GDprime(G, slope)
-calc_GDprime <- function(G, slope) {
-    s <- na.omit(slope)
-    return(G * sin(pi * s/2))
+#' Loss <- loss_mod(visco_mod, slope)
+loss_mod <- function(visco_mod, slope) {
+    slope <- na.omit(slope)
+    return(visco_mod * sin(pi * slope/2))
 }
 #' This function produces a tibble consisting of frequency, the storage and loss modulus
-#' @param d A tibble consisting of correlation time and related mean square displacement
+#' @param msd_t A tibble consisting of correlation time and related mean square displacement
 #' @param temp (optional) temperature in Celsius, default = 20
 #' @param radius (optional) particle radius size, default = 5e-7
 #' @return A tibble consisting of frequency with related storage and loss modulii
 #' @examples
-#' e <- calc_modulus(d, 20, 5e-7)
+#' mods <- form_modulus(d, 20, 5e-7)
 #' @importFrom tibble tibble
 #' @export
-calc_modulus <- function(d, temp = NULL, radius = NULL) {
+form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
   temp <- ifelse(is.null(temp), 20, temp)
   radius <- ifelse(is.null(radius), 5e-7, radius)
-  slope <- with(d, calc_slope(time, msd))
-  G <- with(d, visco_mod(temp, radius, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
-  # g <- tibble(freq = with(d, calcFreq(time)), `G'` = calcGprime( G, slope ), `G''` = calcGDprime( G, slope ))
-  g <- tibble::tibble(freq = with(d, calc_freq(time)), `Storage (G')` = calc_Gprime(G, slope), `Loss (G'')` = calc_GDprime(G,        slope))
-  return(g)
+  slope <- with(msd_t, calc_slope(time, msd))
+  visco_m <- with(msd_t, visco_mod(temp, radius, msd, slope))  #radius <- 5e-7, radius = a & temperature = 20 deg C
+  mods <- tibble::tibble(freq = with(msd_t, calc_freq(time)),
+                      `Storage (G')` = storage_mod(visco_m, slope),
+                      `Loss (G'')` = loss_mod(visco_m, slope))
+  return(mods)
 }
 #' Plots storage and loss modulus against the measured frequency
 #' @param mod_t A tibble consisting of frequency and the related storage and loss modulusA
