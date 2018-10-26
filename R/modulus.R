@@ -89,18 +89,18 @@ calc_modulus <- function(d, temp = NULL, radius = NULL) {
   return(g)
 }
 #' Plots storage and loss modulus against the measured frequency
-#' @param g A tibble consisting of frequency and the related storage and loss modulusA
+#' @param mod_t A tibble consisting of frequency and the related storage and loss modulusA
 #' @examples
-#' plot_modulus(g)
+#' plot_modulus(mod_t)
 #' @export
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
-plot_modulus <- function(g) {
-    g <- tidyr::gather(g, key = Modulus, val, -freq)
-    p <- ggplot2::ggplot(g, ggplot2::aes(freq, val, color = Modulus)) + 
+plot_modulus <- function(mod_t) {
+  mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
+  mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) + 
       ggplot2::geom_point() + 
       ggplot2::scale_x_log10(limits = c(1, 10000)) + 
       ggplot2::scale_y_log10(limits = c(1, 300)) + 
       ggplot2::labs(x = "Frequency", y = "Modulus")
-    return(p)
+  suppressWarnings(print(mod_p))
 }
