@@ -4,10 +4,10 @@
 \alias{g1_spline}
 \title{Interpolate the scaled g1 vs time function and return fitted values}
 \usage{
-g1_spline(d)
+g1_spline(t_g1)
 }
 \arguments{
-\item{d}{A tibble consisting of time and scaled g1(t) values}
+\item{t_g1}{A tibble consisting of time and scaled g1(t) values}
 }
 \value{
 A numeric vector.
@@ -16,5 +16,5 @@ A numeric vector.
 Interpolate the scaled g1 vs time function and return fitted values
 }
 \examples{
-pred <- g1_spline(d)
+pred_values <- g1_spline(t_g1)
 }

@@ -4,14 +4,14 @@
 \alias{plot_g1}
 \title{Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5}
 \usage{
-plot_g1(d)
+plot_g1(t_g1)
 }
 \arguments{
-\item{d}{A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)}
+\item{t_g1}{A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)}
 }
 \description{
 Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
 }
 \examples{
-plot_g1(d)
+plot_g1(t_g1)
 }

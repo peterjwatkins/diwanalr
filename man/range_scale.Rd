@@ -4,12 +4,12 @@
 \alias{range_scale}
 \title{Range scale a vector using the mean of first n elements as the maximum value}
 \usage{
-range_scale(y, n)
+range_scale(vec, num_points)
 }
 \arguments{
-\item{y}{A vector}
+\item{vec}{A vector}
 
-\item{n}{An integer}
+\item{num_points}{An integer}
 }
 \value{
 A numeric vector
@@ -18,5 +18,5 @@ A numeric vector
 Range scale a vector using the mean of first n elements as the maximum value
 }
 \examples{
-range_scale(Observed, 30)
+range_scale(observed, 30)
 }

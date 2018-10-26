@@ -29,19 +29,20 @@ findX <- function(y) {
 FindX <- Vectorize(findX)
 #' Calculate the mean square displacement
 #'
-#' @param d A tibble consisting of correlation time, observed and scaled g1(t) values
+#' @param g1 A tibble consisting of correlation time, observed and scaled g1(t) values
 #' @return A tibble consisting of correlation time and related mean square displacement
 #' @examples
-#' e <- calc_msd(d)
+#' msd <- form_msd(g1)
 #' @importFrom dplyr select
-calc_msd <- function(d) {
+#' @export
+form_msd <- function(g1) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
-    e <- within(d, msd <- FindX(Scaled)/(10^8 * k0))
-    e <- dplyr::select(e, -`Observed`, -`Scaled`)
-    e <- na.omit(e)
+    g1_msd <- within(g1, msd <- FindX(Scaled)/(10^8 * k0))
+    g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
+    g1_msd <- na.omit(g1_msd)
 #    print(e)
-    return(e)
+    return(g1_msd)
 }
 #' Plots the mean square displacement against the correlation time
 #' @param g A tibble consisting of correlation time and related mean square displacement
@@ -49,12 +50,12 @@ calc_msd <- function(d) {
 #' plot_msd(e)
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
-plot_msd <- function(d) {
-    p <- ggplot2::ggplot(d, ggplot2::aes(time, msd)) + 
+plot_msd <- function(g1_msd) {
+    msd_p <- ggplot2::ggplot(g1_msd, ggplot2::aes(time, msd)) + 
       ggplot2::geom_point() + 
       ggplot2::scale_x_log10() + 
       ggplot2::scale_y_log10() + 
       ggplot2::labs(x = "Correlation time (s)",
         y = "Mean square displacement")
-    return(p)
+    print(msd_p)
 }

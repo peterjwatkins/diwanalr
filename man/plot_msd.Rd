@@ -4,7 +4,7 @@
 \alias{plot_msd}
 \title{Plots the mean square displacement against the correlation time}
 \usage{
-plot_msd(d)
+plot_msd(g1_msd)
 }
 \arguments{
 \item{g}{A tibble consisting of correlation time and related mean square displacement}
