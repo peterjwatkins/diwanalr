@@ -41,13 +41,12 @@ form_msd <- function(g1) {
     g1_msd <- within(g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
     g1_msd <- na.omit(g1_msd)
-#    print(e)
     return(g1_msd)
 }
 #' Plots the mean square displacement against the correlation time
-#' @param g A tibble consisting of correlation time and related mean square displacement
+#' @param g1_msd A tibble consisting of correlation time and related mean square displacement
 #' @examples
-#' plot_msd(e)
+#' plot_msd(g1_msd)
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(g1_msd) {
