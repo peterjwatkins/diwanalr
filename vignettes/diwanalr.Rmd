@@ -48,7 +48,7 @@ plot_msd(msd)
 The last stage is to determine the viscoelastic modulus (*G*) from the mean square displacement, which is then used to determine the related storage and loss moduli. The function *form_modulus* is used for this purpose, accepting the output from *form_msd* and returning a tibble with the time and related storage (*G'*) and loss (*G''*) moduli. The function *plot_modulus* is available for visualising the data resulting from the *form_modulus* function.
 
 ``` 
-mods <- calc_modulus(msd)
+mods <- form_modulus(msd)
 plot_modulus(mods)
 ```
 

@@ -4,10 +4,14 @@
 \alias{plot_modulus}
 \title{Plots storage and loss modulus against the measured frequency}
 \usage{
-plot_modulus(mod_t)
+plot_modulus(mod_t, x_max = NULL, y_max = NULL)
 }
 \arguments{
 \item{mod_t}{A tibble consisting of frequency and the related storage and loss modulusA}
+
+\item{x_max}{(optional) Maximum 'x' scale value, default = 10000}
+
+\item{y_max}{(optional) Maximum 'y' scale value, default = 10000}
 }
 \description{
 Plots storage and loss modulus against the measured frequency
