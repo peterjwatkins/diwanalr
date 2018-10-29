@@ -2,10 +2,10 @@ context("testing g1")
 
 library("testthat")
 
-d <- calc_g1(dws) ; e <- calc_msd(d)
+g1 <- form_g1(dws) ; msd <- form_msd(g1)
 
 test_that("calc_modulus returns tibble", {
-  expect_is(calc_modulus(e),  "data.frame") 
+  expect_is(form_modulus(msd),  "data.frame") 
 }
 )
 

@@ -29,16 +29,16 @@ findX <- function(y) {
 FindX <- Vectorize(findX)
 #' Calculate the mean square displacement
 #'
-#' @param g1 A tibble consisting of correlation time, observed and scaled g1(t) values
+#' @param t_g1 A tibble consisting of correlation time, observed and scaled g1(t) values
 #' @return A tibble consisting of correlation time and related mean square displacement
 #' @examples
 #' msd <- form_msd(g1)
 #' @importFrom dplyr select
 #' @export
-form_msd <- function(g1) {
+form_msd <- function(t_g1) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
-    g1_msd <- within(g1, msd <- FindX(Scaled)/(10^8 * k0))
+    g1_msd <- within(t_g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
     g1_msd <- na.omit(g1_msd)
     return(g1_msd)

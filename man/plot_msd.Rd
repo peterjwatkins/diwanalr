@@ -7,11 +7,11 @@
 plot_msd(g1_msd)
 }
 \arguments{
-\item{g}{A tibble consisting of correlation time and related mean square displacement}
+\item{g1_msd}{A tibble consisting of correlation time and related mean square displacement}
 }
 \description{
 Plots the mean square displacement against the correlation time
 }
 \examples{
-plot_msd(e)
+plot_msd(g1_msd)
 }

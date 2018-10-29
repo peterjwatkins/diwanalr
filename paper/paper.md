@@ -25,7 +25,7 @@ Research capability exists which allows the application of DWS to food systems.
 In some instances, the analysis of data resulting from such capability can be tedious (e.g. using spreadsheets).
 This package is intended to allow users of such capability to perform analysis of DWS data in a more straightforward manner.
 
-The package utilises two R packages, *tidyverse* and *ggplot2*, in its implementation.
+The package utilises four R packages (*dplyr*, *ggplot2*,  *tibble* and *tidyr*) in its implementation.
 
 # Background
 

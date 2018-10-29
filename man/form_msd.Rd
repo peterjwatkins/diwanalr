@@ -4,10 +4,10 @@
 \alias{form_msd}
 \title{Calculate the mean square displacement}
 \usage{
-form_msd(g1)
+form_msd(t_g1)
 }
 \arguments{
-\item{g1}{A tibble consisting of correlation time, observed and scaled g1(t) values}
+\item{t_g1}{A tibble consisting of correlation time, observed and scaled g1(t) values}
 }
 \value{
 A tibble consisting of correlation time and related mean square displacement

@@ -1,15 +1,15 @@
-context("testing msd")
+context("testing msd functions")
 
 library("testthat")
 
-#d <- calc_g1(dws)
+g1_t <- form_g1(dws) ; g1_msd <- calc_msd(g1_t)
 
-test_that("calc_msd returns df", {
-  expect_is(calc_msd(calc_g1(dws)), "data.frame")
-    }
+test_that("calc_msd tibble", {
+  expect_is(calc_msd(g1_t),  "data.frame") 
+}
 )
 
-test_that("plot_msd returns ggplot object",{
-  p <- plot_msd(calc_msd(calc_g1(dws)))
-  expect_is(p,"ggplot")
-})
+test_that("calc_modulus returns tibble", {
+  expect_is(calc_modulus(e),  "tibble") 
+}
+)
