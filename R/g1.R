@@ -1,4 +1,4 @@
-#' Range scale a vector using the mean of first n elements as the maximum value
+#' Range scale a vector using the mean of first n elements (num_points) as the maximum value
 #'
 #' @param vec A vector
 #' @param num_points An integer
@@ -47,7 +47,6 @@ form_g1 <- function(t_g2, num_points = NULL) {
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 labs geom_hline geom_vline
 plot_g1 <- function(t_g1) {
     pred_spl <- g1_spline(t_g1)
-#    t_half <- approxfun(x = pred_spl, y = d$time)(0.5)
     t_g1_data <- tidyr::gather(t_g1, key = g1, Value, -time)
     t_g1_plot <- ggplot2::ggplot(t_g1_data, ggplot2::aes(time, Value, color = g1)) + 
       ggplot2::geom_point() + 
@@ -56,5 +55,5 @@ plot_g1 <- function(t_g1) {
       ggplot2::geom_hline(yintercept = 0.5, linetype = "dashed", color = "blue") + 
       ggplot2::geom_vline(xintercept = approxfun(x = pred_spl,
           y = t_g1$time)(0.5), linetype = "dashed", color = "blue")
-    return(t_g1_plot)
+    print(t_g1_plot)
 }
