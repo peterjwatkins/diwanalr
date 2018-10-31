@@ -27,9 +27,11 @@ findX <- function(y) {
         stats::uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
     } else NA
 }
-#' Used internally for calculating mean square displacement for transmission geometry
-#'
+
+# Used internally for calculating mean square displacement for transmission geometry
 FindX <- Vectorize(findX)
+
+
 #' Calculate the mean square displacement
 #'
 #' @param t_g1 A tibble consisting of correlation time, observed and scaled g1(t) values
@@ -44,7 +46,7 @@ form_msd <- function(t_g1) {
     g1_msd <- within(t_g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
     
-    # why is it appropriate to remove NA values here? why are
+    # TODO: why is it appropriate to remove NA values here? why are
     # NA values being generated? is this expected?
     g1_msd <- stats::na.omit(g1_msd)
     return(g1_msd)
