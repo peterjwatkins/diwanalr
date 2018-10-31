@@ -1,4 +1,9 @@
+^codecov\.yml$
+^\.travis\.yml$
 ^\.github$
 ^README\.Rmd$
 ^.*\.Rproj$
 ^\.Rproj\.user$
+CONTRIBUTING.md
+^intro_to_diwanalr.ipynb$
+^paper$
