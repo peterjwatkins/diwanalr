@@ -2,7 +2,7 @@
 % Please edit documentation in R/modulus.R
 \name{calc_freq}
 \alias{calc_freq}
-\title{This function is used to calculate the frequency as inverse of time}
+\title{This function is used to calculate the frequency as inverse of time (t)}
 \usage{
 calc_freq(t)
 }
@@ -13,8 +13,8 @@ calc_freq(t)
 A vector
 }
 \description{
-This function is used to calculate the frequency as inverse of time
+This function is used to calculate the frequency as inverse of time (t)
 }
 \examples{
-calc_freq(time)
+calc_freq(t)
 }

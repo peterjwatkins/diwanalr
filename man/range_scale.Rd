@@ -2,7 +2,7 @@
 % Please edit documentation in R/g1.R
 \name{range_scale}
 \alias{range_scale}
-\title{Range scale a vector using the mean of first n elements as the maximum value}
+\title{Range scale a vector using the mean of first n elements (num_points) as the maximum value}
 \usage{
 range_scale(vec, num_points)
 }
@@ -15,7 +15,7 @@ range_scale(vec, num_points)
 A numeric vector
 }
 \description{
-Range scale a vector using the mean of first n elements as the maximum value
+Range scale a vector using the mean of first n elements (num_points) as the maximum value
 }
 \examples{
 range_scale(observed, 30)

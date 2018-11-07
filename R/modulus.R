@@ -39,11 +39,11 @@ visco_mod <- function(temp, radius, msd, slope) {
     high <- length(msd) - 1
     return((kBoltzmann * celsius_to_kelvin(temp))/(pi * radius * msd[(lo:high)] * (gamma(1 + slope))))
 }
-#' This function is used to calculate the frequency as inverse of time
+#' This function is used to calculate the frequency as inverse of time (t)
 #' @param t A vector
 #' @return A vector
 #' @examples
-#' calc_freq(time)
+#' calc_freq(t)
 calc_freq <- function(t) {
     # t[1] and t[length] are removed
     lo <- 2
