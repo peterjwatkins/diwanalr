@@ -3,8 +3,10 @@
 # Credit and acknowledgement to W.N. (Bill) Venables who
 # provided this code/solution
 
-#' Used internally for calculating mean square displacement for transmission geometry
-#'
+# Used internally for calculating mean square displacement for transmission geometry
+#
+# TODO: is the call to local() necessary here? or can you just define
+# lamdba, L, etc in the body of the function
 msd_g1_diff <- local({
     lambda <- 6.32/1e+07
     L <- 0.01
@@ -15,18 +17,21 @@ msd_g1_diff <- local({
             (4/9) * x^2) * sinh((L/lstar) * x) + (4/3) * x * cosh((L/lstar) * x))) - y)
     }
 })
-#' Used internally for calculating mean square displacement for transmission geometry
-#'
+
+# Used internally for calculating mean square displacement for transmission geometry
+#
 findX <- function(y) {
     tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
     if (prod(tst) < 0) {
         ## opposite signs
-        uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
+        stats::uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
     } else NA
 }
-#' Used internally for calculating mean square displacement for transmission geometry
-#'
+
+# Used internally for calculating mean square displacement for transmission geometry
 FindX <- Vectorize(findX)
+
+
 #' Calculate the mean square displacement
 #'
 #' @param t_g1 A tibble consisting of correlation time, observed and scaled g1(t) values
@@ -40,7 +45,10 @@ form_msd <- function(t_g1) {
     k0 <- 2 * pi/lambda
     g1_msd <- within(t_g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
-    g1_msd <- na.omit(g1_msd)
+    
+    # TODO: why is it appropriate to remove NA values here? why are
+    # NA values being generated? is this expected?
+    g1_msd <- stats::na.omit(g1_msd)
     return(g1_msd)
 }
 #' Plots the mean square displacement against the correlation time

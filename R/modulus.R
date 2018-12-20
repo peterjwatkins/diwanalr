@@ -7,6 +7,7 @@
 celsius_to_kelvin <- function(temp) {
     return(temp + 273.15)
 }
+
 #' This function is used internally for calculating the viscoelastic modulus.
 #' @param x A vector
 #' @param y A vector (same length as x)
@@ -19,11 +20,12 @@ calc_slope <- function(x, y) {
     slope[1] <- NA
     for (i in 2:(length(x) - 1)) {
         j <- seq(i - 1, i + 1, 1)
-        slope <- cbind(slope, lm(log(y[j]) ~ log(x[j]))$coef[2])
+        slope <- cbind(slope, stats::lm(log(y[j]) ~ log(x[j]))$coef[2])
     }
     slope[i + 1] <- NA
     return(slope)
 }
+
 #' This function is used to calculate the viscoelastic modulus.
 #' @param temp A number (temperature, in Celsius)
 #' @param radius A number
@@ -33,12 +35,15 @@ calc_slope <- function(x, y) {
 #' @examples
 #' visco_mod(temp, radius, msd, slope)
 visco_mod <- function(temp, radius, msd, slope) {
-    slope <- na.omit(slope)
+    # TODO: why are there NAs here? is this expected? how are they
+    # generated?
+    slope <- stats::na.omit(slope)
     kBoltzmann <- 1.38064852/1e+23
     lo <- 2
     high <- length(msd) - 1
     return((kBoltzmann * celsius_to_kelvin(temp))/(pi * radius * msd[(lo:high)] * (gamma(1 + slope))))
 }
+
 #' This function is used to calculate the frequency as inverse of time
 #' @param t A vector
 #' @return A vector
@@ -50,6 +55,7 @@ calc_freq <- function(t) {
     high <- length(t) - 1
     return(1/(t[(lo:high)]))
 }
+
 #' This function is used to calculate the storage modulus
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
@@ -57,9 +63,12 @@ calc_freq <- function(t) {
 #' @examples
 #' Storage <- visco_mod(G, slope)
 storage_mod <- function(visco_mod, slope) {
-    slope <- na.omit(slope)
+    # TODO: why are there NAs here? is this expected? how are they
+    # generated?
+    slope <- stats::na.omit(slope)
     return(visco_mod * cos(pi * slope/2))
 }
+
 #' This function is used to calculate the loss modulus
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
@@ -67,9 +76,12 @@ storage_mod <- function(visco_mod, slope) {
 #' @examples
 #' Loss <- loss_mod(visco_mod, slope)
 loss_mod <- function(visco_mod, slope) {
-    slope <- na.omit(slope)
+    # TODO: why is it appropriate to remove NA values here? how are they
+    # being generated? are they expected?
+    slope <- stats::na.omit(slope)
     return(visco_mod * sin(pi * slope/2))
 }
+
 #' This function produces a tibble consisting of frequency, the storage and loss modulus
 #' @param msd_t A tibble consisting of correlation time and related mean square displacement
 #' @param temp (optional) temperature in Celsius, default = 20
@@ -89,6 +101,7 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
                       `Loss (G'')` = loss_mod(visco_m, slope))
   return(mods)
 }
+
 #' Plots storage and loss modulus against the measured frequency
 #' @param mod_t A tibble consisting of frequency and the related storage and loss modulusA
 #' @param x_max (optional) Maximum 'x' scale value, default = 10000
@@ -107,5 +120,8 @@ plot_modulus <- function(mod_t, x_max = NULL, y_max = NULL) {
       ggplot2::scale_x_log10(limits = c(1, 10000)) + 
       ggplot2::scale_y_log10(limits = c(1, 300)) + 
       ggplot2::labs(x = "Frequency", y = "Modulus")
+  
+  # TODO: add a comment here documenting what the warnings are,
+  # how they are generated, and why they are okay
   suppressWarnings(print(mod_p))
 }

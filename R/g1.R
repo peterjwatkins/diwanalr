@@ -9,6 +9,7 @@ range_scale <- function(vec, num_points) {
     range <- mean(vec[c(1:num_points)]) - min(vec)
     return((vec - min(vec))/range)
 }
+
 #' Interpolate the scaled g1 vs time function and return fitted values
 #'
 #' @param t_g1 A tibble consisting of time and scaled g1(t) values
@@ -20,6 +21,7 @@ g1_spline <- function(t_g1) {
     pred_values <- with(t_g1, predict(spl_model, time)$y)
     return(pred_values)
 }
+
 #' Calculates the autocorrelation function value (g1(t)) from measured correlation time and related intensity autocorrelation (g2(t))
 #'
 #' @param t_g2 A tibble consisting of measured correlation time and related intensity autocorrelation (g2(t)) value
@@ -37,6 +39,7 @@ form_g1 <- function(t_g2, num_points = NULL) {
   t_g1 <- dplyr::mutate(t_g1, Scaled = range_scale(Observed, num_points))  # range scale data
   return(t_g1)
 }
+
 #' Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
 #'
 #' @param t_g1 A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
@@ -53,7 +56,7 @@ plot_g1 <- function(t_g1) {
       ggplot2::scale_x_log10() + 
       ggplot2::labs(x = "Correlation time (s)", y = "g1(t)") +
       ggplot2::geom_hline(yintercept = 0.5, linetype = "dashed", color = "blue") + 
-      ggplot2::geom_vline(xintercept = approxfun(x = pred_spl,
+      ggplot2::geom_vline(xintercept = stats::approxfun(x = pred_spl,
           y = t_g1$time)(0.5), linetype = "dashed", color = "blue")
     print(t_g1_plot)
 }
