@@ -3,8 +3,6 @@
 #' @param vec A vector
 #' @param num_points An integer
 #' @return A numeric vector
-#' @examples
-#' range_scale(observed, 30)
 range_scale <- function(vec, num_points) {
     range <- mean(vec[c(1:num_points)]) - min(vec)
     return((vec - min(vec))/range)
@@ -13,8 +11,6 @@ range_scale <- function(vec, num_points) {
 #'
 #' @param t_g1 A tibble consisting of time and scaled g1(t) values
 #' @return A numeric vector.
-#' @examples
-#' pred_values <- g1_spline(t_g1)
 g1_spline <- function(t_g1) {
     spl_model <- with(t_g1, smooth.spline(time, Scaled))
     pred_values <- with(t_g1, predict(spl_model, time)$y)
@@ -25,8 +21,6 @@ g1_spline <- function(t_g1) {
 #' @param t_g2 A tibble consisting of measured correlation time and related intensity autocorrelation (g2(t)) value
 #' @param num_points (optional) number of data points for scaling, default = 30
 #' @return A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
-#' @examples
-#' t_g1 <- form_g1(t_g2, 30)
 #' @export
 #' @importFrom dplyr filter mutate select
 form_g1 <- function(t_g2, num_points = NULL) {
@@ -40,8 +34,6 @@ form_g1 <- function(t_g2, num_points = NULL) {
 #' Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
 #'
 #' @param t_g1 A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
-#' @examples
-#' plot_g1(t_g1)
 #' @export
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 labs geom_hline geom_vline

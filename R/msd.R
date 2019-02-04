@@ -31,8 +31,9 @@ FindX <- Vectorize(findX)
 #'
 #' @param t_g1 A tibble consisting of correlation time, observed and scaled g1(t) values
 #' @return A tibble consisting of correlation time and related mean square displacement
-#' @examples
+#' @dontrun{
 #' msd <- form_msd(g1)
+#' }
 #' @importFrom dplyr select
 #' @export
 form_msd <- function(t_g1) {
@@ -45,8 +46,6 @@ form_msd <- function(t_g1) {
 }
 #' Plots the mean square displacement against the correlation time
 #' @param g1_msd A tibble consisting of correlation time and related mean square displacement
-#' @examples
-#' plot_msd(g1_msd)
 #' @export
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_x_log10 labs
 plot_msd <- function(g1_msd) {

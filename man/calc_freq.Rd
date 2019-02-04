@@ -2,19 +2,16 @@
 % Please edit documentation in R/modulus.R
 \name{calc_freq}
 \alias{calc_freq}
-\title{This function is used to calculate the frequency as inverse of time (time_c)}
+\title{This function is used to calculate the frequency as inverse of time (time_to_invert)}
 \usage{
-calc_freq(time_c)
+calc_freq(time_to_invert)
 }
 \arguments{
-\item{time_c}{A vector}
+\item{time_to_invert}{A vector}
 }
 \value{
 A vector
 }
 \description{
-This function is used to calculate the frequency as inverse of time (time_c)
-}
-\examples{
-calc_freq(time_c)
+This function is used to calculate the frequency as inverse of time (time_to_invert)
 }

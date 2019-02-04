@@ -2,8 +2,6 @@
 #'
 #' @param temp A numnber
 #' @return A number
-#' @examples
-#' celsius_to_kelvin(20)
 celsius_to_kelvin <- function(temp) {
     return(temp + 273.15)
 }
@@ -11,8 +9,9 @@ celsius_to_kelvin <- function(temp) {
 #' @param x A vector
 #' @param y A vector (same length as x)
 #' @return A vector
-#' @examples
+#' @dontrun{
 #' calc_slope(time, msd)
+#' }
 calc_slope <- function(x, y) {
     ## x and y must be of same length
     slope <- NULL
@@ -30,8 +29,6 @@ calc_slope <- function(x, y) {
 #' @param msd A vector
 #' @param slope A vector
 #' @return A vector
-#' @examples
-#' visco_mod(temp, radius, msd, slope)
 visco_mod <- function(temp, radius, msd, slope) {
     slope <- na.omit(slope)
     kBoltzmann <- 1.38064852/1e+23
@@ -42,21 +39,22 @@ visco_mod <- function(temp, radius, msd, slope) {
 #' This function is used to calculate the frequency as inverse of time (time_to_invert)
 #' @param time_to_invert A vector
 #' @return A vector
-#' @examples
+#' @dontrun{
 #' calc_freq(time_to_invert)
-#' @export
+#' }
 calc_freq <- function(time_to_invert) {
     # time_to_invert[1] and time_to_invert[length] are removed
     lo <- 2
     high <- length(time_to_invert) - 1
-    return(1/time_to_inver[(lo:high)])
+    return(1/time_to_invert[(lo:high)])
 }
 #' This function is used to calculate the storage modulus
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
-#' @examples
+#' @dontrun{
 #' Storage <- visco_mod(G, slope)
+#' }
 storage_mod <- function(visco_mod, slope) {
     slope <- na.omit(slope)
     return(visco_mod * cos(pi * slope/2))
@@ -65,8 +63,9 @@ storage_mod <- function(visco_mod, slope) {
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
-#' @examples
+#' @dontrun{
 #' Loss <- loss_mod(visco_mod, slope)
+#' }
 loss_mod <- function(visco_mod, slope) {
     slope <- na.omit(slope)
     return(visco_mod * sin(pi * slope/2))
@@ -76,8 +75,6 @@ loss_mod <- function(visco_mod, slope) {
 #' @param temp (optional) temperature in Celsius, default = 20
 #' @param radius (optional) particle radius size, default = 5e-7
 #' @return A tibble consisting of frequency with related storage and loss modulii
-#' @examples
-#' mods <- form_modulus(d, 20, 5e-7)
 #' @importFrom tibble tibble
 #' @export
 form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
@@ -94,8 +91,6 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
 #' @param mod_t A tibble consisting of frequency and the related storage and loss modulusA
 #' @param x_max (optional) Maximum 'x' scale value, default = 10000
 #' @param y_max (optional) Maximum 'y' scale value, default = 10000
-#' @examples
-#' plot_modulus(mod_t)
 #' @export
 #' @importFrom tidyr gather
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
