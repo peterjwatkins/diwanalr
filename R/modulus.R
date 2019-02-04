@@ -49,7 +49,7 @@ calc_freq <- function(time_to_invert) {
     # time_to_invert[1] and time_to_invert[length] are removed
     lo <- 2
     high <- length(time_to_invert) - 1
-    return(1/time_c[(lo:high)])
+    return(1/time_to_inver[(lo:high)])
 }
 #' This function is used to calculate the storage modulus
 #' @param visco_mod A vector (viscoelastic modulus)
