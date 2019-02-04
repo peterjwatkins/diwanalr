@@ -21,6 +21,3 @@ A vector
 \description{
 This function is used to calculate the viscoelastic modulus.
 }
-\examples{
-visco_mod(temp, radius, msd, slope)
-}

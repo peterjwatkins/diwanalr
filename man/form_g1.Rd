@@ -17,6 +17,3 @@ A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
 \description{
 Calculates the autocorrelation function value (g1(t)) from measured correlation time and related intensity autocorrelation (g2(t))
 }
-\examples{
-t_g1 <- form_g1(t_g2, 30)
-}

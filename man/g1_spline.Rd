@@ -15,6 +15,3 @@ A numeric vector.
 \description{
 Interpolate the scaled g1 vs time function and return fitted values
 }
-\examples{
-pred_values <- g1_spline(t_g1)
-}

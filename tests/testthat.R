@@ -1,6 +1,4 @@
-#library("testthat")
-require(testthat)
+library(testthat)
 library(diwanalr)
 
 test_check("diwanalr")
-

@@ -12,6 +12,3 @@ plot_msd(g1_msd)
 \description{
 Plots the mean square displacement against the correlation time
 }
-\examples{
-plot_msd(g1_msd)
-}

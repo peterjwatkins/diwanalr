@@ -16,6 +16,3 @@ plot_modulus(mod_t, x_max = NULL, y_max = NULL)
 \description{
 Plots storage and loss modulus against the measured frequency
 }
-\examples{
-plot_modulus(mod_t)
-}

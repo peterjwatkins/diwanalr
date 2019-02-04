@@ -17,6 +17,3 @@ A numeric vector
 \description{
 Range scale a vector using the mean of first n elements (num_points) as the maximum value
 }
-\examples{
-range_scale(observed, 30)
-}

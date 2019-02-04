@@ -17,6 +17,3 @@ A vector
 \description{
 This function is used to calculate the storage modulus
 }
-\examples{
-Storage <- visco_mod(G, slope)
-}

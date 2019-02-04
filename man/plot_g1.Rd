@@ -12,6 +12,3 @@ plot_g1(t_g1)
 \description{
 Plots the scaled and observed g1(t)) against the correlation time, highlighting the point where g1(t) = 0.5
 }
-\examples{
-plot_g1(t_g1)
-}

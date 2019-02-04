@@ -17,6 +17,3 @@ A vector
 \description{
 This function is used internally for calculating the viscoelastic modulus.
 }
-\examples{
-calc_slope(time, msd)
-}

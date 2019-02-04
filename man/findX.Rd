@@ -6,6 +6,12 @@
 \usage{
 FindX(y)
 }
+\arguments{
+\item{y}{used internally to find root}
+}
+\value{
+y as a vector
+}
 \description{
 Used internally for calculating mean square displacement for transmission geometry
 }

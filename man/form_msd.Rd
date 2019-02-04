@@ -15,6 +15,3 @@ A tibble consisting of correlation time and related mean square displacement
 \description{
 Calculate the mean square displacement
 }
-\examples{
-msd <- form_msd(g1)
-}

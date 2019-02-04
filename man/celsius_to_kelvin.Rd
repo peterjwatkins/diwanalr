@@ -15,6 +15,3 @@ A number
 \description{
 This function is used internally for calculating modulus, converting temperature in Celsius to absolute (Kelvin)
 }
-\examples{
-celsius_to_kelvin(20)
-}

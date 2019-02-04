@@ -19,6 +19,3 @@ A tibble consisting of frequency with related storage and loss modulii
 \description{
 This function produces a tibble consisting of frequency, the storage and loss modulus
 }
-\examples{
-mods <- form_modulus(d, 20, 5e-7)
-}

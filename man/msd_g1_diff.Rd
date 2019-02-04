@@ -6,6 +6,14 @@
 \usage{
 msd_g1_diff(x, y)
 }
+\arguments{
+\item{x}{A number}
+
+\item{y}{A number}
+}
+\value{
+A function localised in scope
+}
 \description{
 Used internally for calculating mean square displacement for transmission geometry
 }

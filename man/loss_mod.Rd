@@ -17,6 +17,3 @@ A vector
 \description{
 This function is used to calculate the loss modulus
 }
-\examples{
-Loss <- loss_mod(visco_mod, slope)
-}

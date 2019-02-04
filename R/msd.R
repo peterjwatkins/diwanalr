@@ -5,6 +5,9 @@
 
 #' Used internally for calculating mean square displacement for transmission geometry
 #'
+#' @param x A number
+#' @param y A number
+#' @return A function localised in scope
 msd_g1_diff <- local({
     lambda <- 6.32/1e+07
     L <- 0.01
@@ -16,7 +19,8 @@ msd_g1_diff <- local({
     }
 })
 #' Used internally for calculating mean square displacement for transmission geometry
-#'
+#' @param y used internally to find root
+#' @return The root value
 findX <- function(y) {
     tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
     if (prod(tst) < 0) {
@@ -25,13 +29,14 @@ findX <- function(y) {
     } else NA
 }
 #' Used internally for calculating mean square displacement for transmission geometry
-#'
+#' @param y used internally to find root
+#' @return y as a vector
 FindX <- Vectorize(findX)
 #' Calculate the mean square displacement
 #'
 #' @param t_g1 A tibble consisting of correlation time, observed and scaled g1(t) values
 #' @return A tibble consisting of correlation time and related mean square displacement
-#' @dontrun{
+#' @donttest{
 #' msd <- form_msd(g1)
 #' }
 #' @importFrom dplyr select
