@@ -39,16 +39,17 @@ visco_mod <- function(temp, radius, msd, slope) {
     high <- length(msd) - 1
     return((kBoltzmann * celsius_to_kelvin(temp))/(pi * radius * msd[(lo:high)] * (gamma(1 + slope))))
 }
-#' This function is used to calculate the frequency as inverse of time (t)
-#' @param t A vector
+#' This function is used to calculate the frequency as inverse of time (time_to_invert)
+#' @param time_to_invert A vector
 #' @return A vector
 #' @examples
-#' calc_freq(t)
-calc_freq <- function(t) {
-    # t[1] and t[length] are removed
+#' calc_freq(time_to_invert)
+#' @export
+calc_freq <- function(time_to_invert) {
+    # time_to_invert[1] and time_to_invert[length] are removed
     lo <- 2
-    high <- length(t) - 1
-    return(1/(t[(lo:high)]))
+    high <- length(time_to_invert) - 1
+    return(1/time_c[(lo:high)])
 }
 #' This function is used to calculate the storage modulus
 #' @param visco_mod A vector (viscoelastic modulus)
