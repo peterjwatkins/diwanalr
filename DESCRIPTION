@@ -8,7 +8,8 @@ Imports:
     ggplot2,
     dplyr,
     tibble, 
-    tidyr
+    tidyr,
+    stats
 Description: A set of tools for data resulting from diffusive wave spectroscopy.
     These included conversion of measured data (time vs g2) to related g1, calculation of
     the mean square displacement as well as the storage and long modulus along with related visualisation.

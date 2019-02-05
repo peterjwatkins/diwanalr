@@ -36,6 +36,7 @@ form_g1 <- function(t_g2, num_points = NULL) {
 #' @param t_g1 A tibble consisting of correlation time, calculated g1(t) and scaled g1(t)
 #' @export
 #' @importFrom tidyr gather
+#' @importFrom stats approxfun
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 labs geom_hline geom_vline
 plot_g1 <- function(t_g1) {
     pred_spl <- g1_spline(t_g1)
@@ -45,7 +46,7 @@ plot_g1 <- function(t_g1) {
       ggplot2::scale_x_log10() + 
       ggplot2::labs(x = "Correlation time (s)", y = "g1(t)") +
       ggplot2::geom_hline(yintercept = 0.5, linetype = "dashed", color = "blue") + 
-      ggplot2::geom_vline(xintercept = approxfun(x = pred_spl,
+      ggplot2::geom_vline(xintercept = stats::approxfun(x = pred_spl,
           y = t_g1$time)(0.5), linetype = "dashed", color = "blue")
     print(t_g1_plot)
 }

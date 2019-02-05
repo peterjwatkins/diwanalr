@@ -21,11 +21,12 @@ msd_g1_diff <- local({
 #' Used internally for calculating mean square displacement for transmission geometry
 #' @param y used internally to find root
 #' @return The root value
+#' @importFrom stats uniroot
 findX <- function(y) {
     tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
     if (prod(tst) < 0) {
         ## opposite signs
-        uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
+        stats::uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
     } else NA
 }
 #' Used internally for calculating mean square displacement for transmission geometry
@@ -40,13 +41,14 @@ FindX <- Vectorize(findX)
 #' msd <- form_msd(g1)
 #' }
 #' @importFrom dplyr select
+#' @importFrom stats na.omit
 #' @export
 form_msd <- function(t_g1) {
     lambda <- 6.32/1e+07
     k0 <- 2 * pi/lambda
     g1_msd <- within(t_g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
-    g1_msd <- na.omit(g1_msd)
+    g1_msd <- stats::na.omit(g1_msd)
     return(g1_msd)
 }
 #' Plots the mean square displacement against the correlation time

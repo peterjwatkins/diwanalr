@@ -9,16 +9,18 @@ celsius_to_kelvin <- function(temp) {
 #' @param x A vector
 #' @param y A vector (same length as x)
 #' @return A vector
+#' @importFrom stats lm
 #' @dontrun{
 #' calc_slope(time, msd)
 #' }
+#' 
 calc_slope <- function(x, y) {
     ## x and y must be of same length
     slope <- NULL
     slope[1] <- NA
     for (i in 2:(length(x) - 1)) {
         j <- seq(i - 1, i + 1, 1)
-        slope <- cbind(slope, lm(log(y[j]) ~ log(x[j]))$coef[2])
+        slope <- cbind(slope, stats::lm(log(y[j]) ~ log(x[j]))$coef[2])
     }
     slope[i + 1] <- NA
     return(slope)
@@ -30,7 +32,7 @@ calc_slope <- function(x, y) {
 #' @param slope A vector
 #' @return A vector
 visco_mod <- function(temp, radius, msd, slope) {
-    slope <- na.omit(slope)
+    slope <- stats::na.omit(slope)
     kBoltzmann <- 1.38064852/1e+23
     lo <- 2
     high <- length(msd) - 1
@@ -52,22 +54,24 @@ calc_freq <- function(time_to_invert) {
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
+#' @importFrom stats na.omit
 #' @dontrun{
 #' Storage <- visco_mod(G, slope)
 #' }
 storage_mod <- function(visco_mod, slope) {
-    slope <- na.omit(slope)
+    slope <- stats::na.omit(slope)
     return(visco_mod * cos(pi * slope/2))
 }
 #' This function is used to calculate the loss modulus
 #' @param visco_mod A vector (viscoelastic modulus)
 #' @param slope A vector
 #' @return A vector
+#' @importFrom stats na.omit
 #' @dontrun{
 #' Loss <- loss_mod(visco_mod, slope)
 #' }
 loss_mod <- function(visco_mod, slope) {
-    slope <- na.omit(slope)
+    slope <- stats::na.omit(slope)
     return(visco_mod * sin(pi * slope/2))
 }
 #' This function produces a tibble consisting of frequency, the storage and loss modulus
