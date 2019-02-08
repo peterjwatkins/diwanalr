@@ -49,6 +49,8 @@ form_msd <- function(t_g1) {
     g1_msd <- within(t_g1, msd <- FindX(Scaled)/(10^8 * k0))
     g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
     g1_msd <- stats::na.omit(g1_msd)
+    ## Note : NA are introduced in the 'findX' function (see above)
+    ## the last statement is used as a filter for the NAs's
     return(g1_msd)
 }
 #' Plots the mean square displacement against the correlation time
