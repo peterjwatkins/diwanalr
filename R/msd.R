@@ -26,7 +26,7 @@ findX <- function(y) {
   tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
   ## For 'uniroot' to behave properly, it's important that f(lower) * f(upper) < 0
   ## This test ensures that a solution is present to find X
-  ## otherwise, there is no root and thus NA
+  ## Otherwise, there is no root and thus NA
   if (prod(tst) < 0) {
     ## opposite signs
     stats::uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root
@@ -54,8 +54,8 @@ form_msd <- function(t_g1) {
   g1_msd <- within(t_g1, msd <- FindX(Scaled) / (10^8 * k0))
   g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
   g1_msd <- stats::na.omit(g1_msd)
-  ## Note : NA are introduced in the 'findX' function (see above)
-  ## meaning that there is no solution to 'uniroot' and thus NA
+  ## Note : NAs are introduced in the 'findX' function (see above)
+  ## This means that there is no 'uniroot' solution and thus deemed as NA
   ## The above statement is used as a filter for the NAs's
   return(g1_msd)
 }

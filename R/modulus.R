@@ -110,7 +110,8 @@ plot_modulus <- function(mod_t, x_max = NULL, y_max = NULL) {
     ggplot2::scale_y_log10(limits = c(1, 300)) +
     ggplot2::labs(x = "Frequency", y = "Modulus")
   suppressWarnings(print(mod_p))
-  ## Negative numbers are generated, which are artefacts from the calculation
-  ## which generates warnings when this function is deployed, and is not serious.
-  ## The last statement is used to filter out these statements.
+  ## NaNs are generated when plotting modulus due to negative numbers
+  ## in G' and G'', which causes warnings with ggplot.
+  ## These are artefacts, and have no impact on the visualisation in the plot
+  ##
 }
