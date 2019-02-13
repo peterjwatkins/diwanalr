@@ -95,16 +95,15 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
 }
 #' Plots storage and loss modulus against the measured frequency
 #' @param mod_t A tibble consisting of frequency and the related storage and loss modulusA
-#' @param x_max (optional) Maximum 'x' scale value, default = 10000
-#' @param y_max (optional) Maximum 'y' scale value, default = 10000
+#' @param y_threshold (optional) Minimum 'y' axis plot value, default = 10^-6
 #' @export
 #' @importFrom tidyr gather
 #' @importFrom dplyr filter
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
-plot_modulus <- function(mod_t) {
-  ## Filter is used for modulus for data visualisation
+plot_modulus <- function(mod_t, y_threshold = 1e-6) {
+  ## Filter (> y_threshold) is used for modulus for data visualisation
   ## Modulus values <=0 create NaNs, displaying error/warning messages
-  mod_t <- dplyr::filter(mod_t, `Storage (G')` > 1e-6 &`Loss (G'')` > 1e-6)
+  mod_t <- dplyr::filter(mod_t, `Storage (G')` > y_threshold & `Loss (G'')` > y_threshold)
   mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
   mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
     ggplot2::geom_point() +
