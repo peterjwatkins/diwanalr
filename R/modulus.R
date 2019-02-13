@@ -99,19 +99,17 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
 #' @param y_max (optional) Maximum 'y' scale value, default = 10000
 #' @export
 #' @importFrom tidyr gather
+#' @importFrom dplyr filter
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
-plot_modulus <- function(mod_t, x_max = NULL, y_max = NULL) {
-  x_max <- ifelse(is.null(x_max), 10000, x_max)
-  y_max <- ifelse(is.null(y_max), 300, y_max)
+plot_modulus <- function(mod_t) {
+  ## Filter is used for modulus for data visualisation
+  ## Modulus values <=0 create NaNs, displaying error/warning messages
+  mod_t <- dplyr::filter(mod_t, `Storage (G')` > 1e-6 &`Loss (G'')` > 1e-6)
   mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
   mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
     ggplot2::geom_point() +
-    ggplot2::scale_x_log10(limits = c(1, 10000)) +
-    ggplot2::scale_y_log10(limits = c(1, 300)) +
+    ggplot2::scale_x_log10() +
+    ggplot2::scale_y_log10() +
     ggplot2::labs(x = "Frequency", y = "Modulus")
-  suppressWarnings(print(mod_p))
-  ## NaNs are generated when plotting modulus due to negative numbers
-  ## in G' and G'', which causes warnings with ggplot.
-  ## These are artefacts, and have no impact on the visualisation in the plot
-  ##
+  print(mod_p)
 }
