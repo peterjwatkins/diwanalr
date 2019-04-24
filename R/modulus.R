@@ -103,6 +103,7 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
 plot_modulus <- function(mod_t, y_threshold = 1e-6) {
   ## Filter (> y_threshold) is used for modulus for data visualisation
   ## Modulus values <=0 create NaNs, displaying error/warning messages
+  ## This results in only positive modulus values being displayed
   mod_t <- dplyr::filter(mod_t, `Storage (G')` > y_threshold & `Loss (G'')` > y_threshold)
   mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
   mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
