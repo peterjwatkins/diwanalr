@@ -26,7 +26,8 @@ findX <- function(y) {
   tst <- msd_g1_diff(c(.Machine$double.eps, 1), y)
   ## For 'uniroot' to behave properly, it's important that f(lower) * f(upper) < 0
   ## This test ensures that a solution is present to find X
-  ## Otherwise, there is no root and thus NA
+  ## Otherwise, there is no root and so NA is assigned to this value
+  ## rather the solution.
   if (prod(tst) < 0) {
     ## opposite signs
     stats::uniroot(msd_g1_diff, c(.Machine$double.eps, 1), y = y)$root

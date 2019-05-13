@@ -102,8 +102,10 @@ form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
 #' @importFrom ggplot2 ggplot aes geom_point scale_x_log10 scale_y_log10 labs
 plot_modulus <- function(mod_t, y_threshold = 1e-6) {
   ## Filter (> y_threshold) is used for modulus for data visualisation
-  ## Modulus values <=0 create NaNs, displaying error/warning messages
-  ## This results in only positive modulus values being displayed
+  ## Modulus values <=0 create NaNs, displaying error/warning .
+  ## This results in only positive modulus values being displayed, and not
+  ## negative values. For the purpose of visualisation, this is satisfactory since 
+  ## only positive values are of interest; no data loss occurs with this function.
   mod_t <- dplyr::filter(mod_t, `Storage (G')` > y_threshold & `Loss (G'')` > y_threshold)
   mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
   mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
