@@ -19,17 +19,17 @@ test_that("calc_msd fails", {
 })
 
 # Sample testing
-## Check test calculation - time = 0.0000000708, msd = 5.05e-18
+## Check test calculation - msd = 5.05e-18
 test_that("calc_msd test solution", {
   expect_equal(form_msd(g1_test[18,])$msd, 5.0e-18, tolerance=1e-19)
 })
 
-## Check test calculation - time = 0.00000355, msd = 7.76e-17
+## Check test calculation - msd = 7.76e-17
 test_that("calc_msd test solution", {
   expect_equal(form_msd(g1_test[52,])$msd, 7.7e-17, tolerance=1e-18)
 })
 
-##Check test calculation - time = 0.000891, msd = 4.53e-16
+##Check test calculation - msd = 4.53e-16
 test_that("calc_msd test solution", {
   expect_equal(form_msd(g1_test[100,])$msd, 4.5e-16, tolerance=1e-17)
 })
