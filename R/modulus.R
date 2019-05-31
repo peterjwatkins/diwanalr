@@ -81,11 +81,14 @@ loss_mod <- function(visco_mod, slope) {
 #' @return A tibble consisting of frequency with related storage and loss modulii
 #' @importFrom tibble tibble
 #' @export
-form_modulus <- function(msd_t, temp = NULL, radius = NULL) {
+form_modulus <- function(msd_t,
+                         temp = NULL,
+                         radius = NULL) {
   temp <- ifelse(is.null(temp), 20, temp)
   radius <- ifelse(is.null(radius), 5e-7, radius)
   slope <- with(msd_t, calc_slope(time, msd))
-  visco_m <- with(msd_t, visco_mod(temp, radius, msd, slope)) # radius <- 5e-7, radius = a & temperature = 20 deg C
+  visco_m <-
+    with(msd_t, visco_mod(temp, radius, msd, slope)) # radius <- 5e-7, radius = a & temperature = 20 deg C
   mods <- tibble::tibble(
     freq = with(msd_t, calc_freq(time)),
     `Storage (G')` = storage_mod(visco_m, slope),
@@ -104,11 +107,14 @@ plot_modulus <- function(mod_t, y_threshold = 1e-6) {
   ## Filter (> y_threshold) is used for modulus for data visualisation
   ## Modulus values <=0 create NaNs, displaying error/warning .
   ## This results in only positive modulus values being displayed, and not
-  ## negative values. For the purpose of visualisation, this is satisfactory since 
+  ## negative values. For the purpose of visualisation, this is satisfactory since
   ## only positive values are of interest; no data loss occurs with this function.
-  mod_t <- dplyr::filter(mod_t, `Storage (G')` > y_threshold & `Loss (G'')` > y_threshold)
-  mod_t <- tidyr::gather(mod_t, key = Modulus, val, -freq)
-  mod_p <- ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
+  mod_t <-
+    dplyr::filter(mod_t, `Storage (G')` > y_threshold &
+                    `Loss (G'')` > y_threshold)
+  mod_t <- tidyr::gather(mod_t, key = Modulus, val,-freq)
+  mod_p <-
+    ggplot2::ggplot(mod_t, ggplot2::aes(freq, val, color = Modulus)) +
     ggplot2::geom_point() +
     ggplot2::scale_x_log10() +
     ggplot2::scale_y_log10() +

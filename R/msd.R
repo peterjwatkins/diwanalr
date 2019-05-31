@@ -14,8 +14,13 @@ msd_g1_diff <- local({
   lstar <- z0 <- 0.000661
   k0 <- 2 * pi / lambda
   function(x, y) {
-    ((((((L / lstar) + 4 / 3) / ((z0 / lstar) + 2 / 3)) * (sinh((z0 / lstar) * x) + (2 / 3) * x * cosh((z0 / lstar) * x))) / ((1 +
-      (4 / 9) * x^2) * sinh((L / lstar) * x) + (4 / 3) * x * cosh((L / lstar) * x))) - y)
+    ((((((L / lstar) + 4 / 3) / ((z0 / lstar) + 2 / 3)
+    ) * (
+      sinh((z0 / lstar) * x) + (2 / 3) * x * cosh((z0 / lstar) * x)
+    )) / ((1 +
+             (4 / 9) * x ^
+             2) * sinh((L / lstar) * x) + (4 / 3) * x * cosh((L / lstar) * x)
+    )) - y)
   }
 })
 #' Used internally for calculating mean square displacement for transmission geometry
@@ -52,8 +57,8 @@ FindX <- Vectorize(findX)
 form_msd <- function(t_g1) {
   lambda <- 6.32 / 1e+07
   k0 <- 2 * pi / lambda
-  g1_msd <- within(t_g1, msd <- FindX(Scaled) / (10^8 * k0))
-  g1_msd <- dplyr::select(g1_msd, -`Observed`, -`Scaled`)
+  g1_msd <- within(t_g1, msd <- FindX(Scaled) / (10 ^ 8 * k0))
+  g1_msd <- dplyr::select(g1_msd,-`Observed`,-`Scaled`)
   g1_msd <- stats::na.omit(g1_msd)
   ## Note : NAs are introduced in the 'findX' function (see above)
   ## This means that there is no 'uniroot' solution and thus deemed as NA
@@ -69,9 +74,7 @@ plot_msd <- function(g1_msd) {
     ggplot2::geom_point() +
     ggplot2::scale_x_log10() +
     ggplot2::scale_y_log10() +
-    ggplot2::labs(
-      x = "Correlation time (s)",
-      y = "Mean square displacement"
-    )
+    ggplot2::labs(x = "Correlation time (s)",
+                  y = "Mean square displacement")
   print(msd_p)
 }

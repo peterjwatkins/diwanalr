@@ -3,6 +3,14 @@
 #
 #' @import utils
 utils::globalVariables(c(
-  "freq", "g1", "g2", "msd", "Modulus", "Observed",
-  "Scaled", "time", "val", "Value"
+  "freq",
+  "g1",
+  "g2",
+  "msd",
+  "Modulus",
+  "Observed",
+  "Scaled",
+  "time",
+  "val",
+  "Value"
 ))
