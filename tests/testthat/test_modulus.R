@@ -8,6 +8,7 @@ t_half <- 0.001
 g1 <- exp(-2 * sqrt(6 * time / t_half))
 g2 <- 1 + 0.9 * g1 ^ 2
 test <- tibble::as_tibble(cbind(time, g2))
+
 g1_test <- form_g1(test)
 msd_test <- form_msd(g1_test)
 
