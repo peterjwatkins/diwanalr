@@ -12,5 +12,7 @@ utils::globalVariables(c(
   "Scaled",
   "time",
   "val",
-  "Value"
+  "Value",
+  "Loss (G'')",
+  "Storage (G')"
 ))
