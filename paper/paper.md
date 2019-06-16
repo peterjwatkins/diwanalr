@@ -32,10 +32,10 @@ The package utilises four R packages (*dplyr*, *ggplot2*,  *tibble* and *tidyr*)
 
 # Background
 
-At present, the package can be deployed to determine the viscoelastic, storage and loss moduli of a system using data, consisting of time and related values from the temporal autocorrelation function, *g*~2~($t$). The latter is related to the intensity autocorrelation function, *g*~1~($t$), by the Seigert equation, where *g*~2~($t$) = 1 + $|$*g*~1~($t$)$|$$^2$ [@Seigert]. The *g*~1~($t$) values are used to determine the mean square displacement (MSD)  for transmission geometry by solving the relationship[@Weitz]:
+At present, the package can be deployed to determine the viscoelastic, storage and loss moduli of a system using data, consisting of time and related values from the temporal autocorrelation function, *g*~2~($t$). The latter is related to the intensity autocorrelation function, *g*~1~($t$), by the Seigert equation, where *g*~2~($t$) = 1 + $|$*g*~1~($t$)$|$$^2$ [@Seigert]. The *g*~1~($t$) values are used to determine the mean square displacement (MSD)  for transmission geometry by solving the relationship [@Weitz]:
  
 \begin{center}
-*g*$_{1}$($t$)$\approx\frac{(\frac{L}{l*}+\frac{4}{3})\sqrt{\frac{6t}{\tau}}}{(1+\frac{8t}{3\tau})sinh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]+\frac{4}{3}\sqrt{\frac{6t}{\tau}}cosh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]}$
+\emph{g}$_{1}$($t$)$\approx\frac{(\frac{L}{l*}+\frac{4}{3})\sqrt{\frac{6t}{\tau}}}{(1+\frac{8t}{3\tau})sinh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]+\frac{4}{3}\sqrt{\frac{6t}{\tau}}cosh[\frac{L}{l*}\sqrt{\frac{6t}{\tau}}]}$
 \end{center}
 
 which are then used to calculate the *viscoelastic* modulus, and related *storage* and *loss* moduli for the system under study.
