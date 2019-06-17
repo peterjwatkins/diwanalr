@@ -42,7 +42,7 @@ test_that("calc_modulus test", {
   expect_gt(form_modulus(msd_test[20:22, ])$`Loss (G'')`[1], 3.8)
 })
 
-# Check okject length
+# Check object length
 test_that("calc_modulus test", {
   expect_length(form_modulus(msd_test[20:82, ]), 3)
 })

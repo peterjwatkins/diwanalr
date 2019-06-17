@@ -22,7 +22,7 @@ test_that("Low time value returns appropriate g1(t) result", {
 })
 
 test_that("High time value returns appropriate g1(t) result", {
-  expect_equal(g1_test[nrow(g1_test),]$Scaled,
+  expect_equal(g1_test[nrow(g1_test)-20,]$Scaled,
                0.00, tolerance = 0.05)
 })
 
