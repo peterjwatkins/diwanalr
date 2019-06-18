@@ -1,7 +1,7 @@
 Type: Package
 Package: diwanalr
 Title: A set of tools for data from diffusive wave spectroscopy
-Version: 0.1.0
+Version: 0.5.0
 Author: Peter Watkins
 Maintainer: Peter Watkins <Peter.Watkins@csiro.au>
 Description: A set of tools for data resulting from diffusive
